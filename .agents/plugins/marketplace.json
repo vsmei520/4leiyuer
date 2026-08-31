@@ -1,0 +1,21 @@
+{
+  "name": "yuer-4skill-marketplace",
+  "interface": {
+    "displayName": "曾美团队-育儿科普"
+  },
+  "plugins": [
+    {
+      "name": "yuer-4skill",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/vsmei520/4leiyuer.git",
+        "ref": "main"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Writing"
+    }
+  ]
+}

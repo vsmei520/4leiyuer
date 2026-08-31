@@ -1,0 +1,12 @@
+# The public repository contains only the installable Codex/ChatGPT client files.
+# Keep the deployment application and all private creative material local or on the server.
+admin/
+deploy/
+private-core/
+server/
+.env
+.env.*
+*.log
+node_modules/
+Dockerfile
+.github/

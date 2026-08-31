@@ -1,0 +1,6 @@
+interface:
+  display_name: "曾美团队-育儿科普"
+  short_description: "曾美育儿知识 · 爆款育儿电影化重构"
+  default_prompt: "发送一段育儿文案，我会先自动判断类型，再按闸门推进。首次使用请完成网页授权。"
+policy:
+  allow_implicit_invocation: true

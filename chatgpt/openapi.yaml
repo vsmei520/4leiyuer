@@ -1,0 +1,52 @@
+openapi: 3.1.0
+info:
+  title: 曾美团队-育儿科普授权与创作 API
+  version: 0.1.0
+  description: 通过授权后调用远程四型育儿内容创作服务。
+servers:
+  - url: https://4lei.073955.com
+paths:
+  /chatgpt/run:
+    post:
+      operationId: runYuerWorkflow
+      summary: 自动判类并生成当前闸门内容
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunRequest'
+      responses:
+        '200':
+          description: 生成结果
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/RunResponse' }
+      security:
+        - oauth2: [yuer]
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://4lei.073955.com/oauth/authorize
+          tokenUrl: https://4lei.073955.com/oauth/token
+          scopes:
+            yuer: 使用曾美团队-育儿科普私有创作能力
+  schemas:
+    RunRequest:
+      type: object
+      required: [input]
+      properties:
+        input: { type: string }
+        stage: { type: string, default: auto }
+        confirm: { type: boolean, default: false }
+        oneShot: { type: boolean, default: false }
+    RunResponse:
+      type: object
+      properties:
+        ok: { type: boolean }
+        stage: { type: string }
+        content: { type: string }
+        type: { type: string }

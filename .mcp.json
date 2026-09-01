@@ -2,7 +2,12 @@
   "mcpServers": {
     "yuer-4skill": {
       "type": "http",
-      "url": "https://4lei.073955.com/mcp"
+      "url": "https://4lei.073955.com/mcp",
+      "auth": "oauth",
+      "required": true,
+      "enabled_tools": ["yuer_run"],
+      "startup_timeout_sec": 20,
+      "tool_timeout_sec": 120
     }
   }
 }

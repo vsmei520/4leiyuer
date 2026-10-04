@@ -1,0 +1,40 @@
+name: build-release
+
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Verify JSON configs
+        run: |
+          node -e "JSON.parse(require('fs').readFileSync('.codex-plugin/plugin.json','utf8'))"
+          node -e "JSON.parse(require('fs').readFileSync('.agents/plugins/marketplace.json','utf8'))"
+          node -e "JSON.parse(require('fs').readFileSync('.mcp.json','utf8'))"
+
+      - name: Verify no private files are tracked
+        run: |
+          if git ls-files | grep -E '^(server|admin|private-core|deploy|local)/|^Dockerfile$'; then
+            echo "::error::Private paths must not be tracked in this repository."
+            exit 1
+          fi
+
+      - name: Package public plugin shell
+        run: |
+          zip -r yuer-4skill-plugin.zip \
+            .codex-plugin .agents .mcp.json skills chatgpt README.md .gitignore
+
+      - name: Show package contents
+        run: unzip -l yuer-4skill-plugin.zip
+
+      - name: Upload release asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: yuer-4skill-plugin.zip

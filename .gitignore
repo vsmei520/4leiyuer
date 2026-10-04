@@ -2,11 +2,12 @@
 # Keep the deployment application and all private creative material local or on the server.
 admin/
 deploy/
+local/
 private-core/
 server/
+.workbuddy/
 .env
 .env.*
 *.log
 node_modules/
 Dockerfile
-.github/
